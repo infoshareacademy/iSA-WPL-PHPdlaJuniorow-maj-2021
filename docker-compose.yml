@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+
+  web:
+    container_name: web-ifa
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "8080:80"
+      - "8081:81"
+      - "8082:82"
+    volumes:
+      - ./apps:/apps/
+    links:
+      - php
+    networks:
+      - my-proxy-net
+
+  composer:
+    restart: 'no'
+    image: "composer"
+
+  php:
+    container_name: php-ifa
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    environment:
+      docker: "true"
+    volumes:
+      - ./apps:/apps/
+    networks:
+      - my-proxy-net
+
+#  postgres:
+#    container_name: postgres-ifa
+#    image: postgres:9.6
+#    environment:
+#      - POSTGRES_PASSWORD=root
+#      - POSTGRES_USER=root
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - my-proxy-net
+#
+#  elastic:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+#    container_name: elastic
+#    environment:
+#      - node.name=elastic
+#      - cluster.name=es-docker-cluster
+#      - discovery.seed_hosts=es02,es03
+#      - cluster.initial_master_nodes=elastic
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - data01:/usr/share/elasticsearch/data
+#    ports:
+#      - 9200:9200
+#    networks:
+#      - my-proxy-net
+#
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:7.12.0
+#    container_name: kibana
+#    ports:
+#      - 5601:5601
+#    environment:
+#      ELASTICSEARCH_URL: http://elastic:9200
+#      ELASTICSEARCH_HOSTS: '["http://elastic:9200"]'
+#    networks:
+#      - my-proxy-net
+
+networks:
+  my-proxy-net:
+    external:
+      name: custom_network
+
+volumes:
+  data01:
+    driver: local
