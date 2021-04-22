@@ -15,7 +15,7 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world1!');
+        $response->getBody()->write(phpinfo());
         return $response;
     });
 

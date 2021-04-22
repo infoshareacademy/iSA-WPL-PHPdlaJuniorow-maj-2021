@@ -17,11 +17,6 @@ services:
       - php
     networks:
       - my-proxy-net
-
-  composer:
-    restart: 'no'
-    image: "composer"
-
   php:
     container_name: php-ifa
     build:

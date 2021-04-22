@@ -4,8 +4,8 @@ Porty
 - localhost:8082 - App3
 
 Używanie composera
-docker run --rm --interactive --tty --volume PELNA_SCIESKA_KATALOGU_APKI:/app composer <command>
-
+- docker-compose run --user=www-data php bash
+- Wejście do katalogu folderu i uruchomienie polecenia composera
 
 
 
