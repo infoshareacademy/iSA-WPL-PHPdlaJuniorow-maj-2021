@@ -16,8 +16,10 @@
 - localhost:8082 - App3
 
 ###### Usługi dostępne pod hostami 
-- sss
-
+- Kibana - localhost:5601
+- Elastic - localhost:9200
+  **Z aplikacji łączymy się przy powyższym porcie ale po nazwie kontenera**
+  
 ###### Zalogowanie się na maszyne PHP-a
 - docker-compose run --user=www-data php bash
 
