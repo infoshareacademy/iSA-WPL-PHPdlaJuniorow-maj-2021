@@ -25,7 +25,7 @@ services:
     environment:
       - DB_DRIVER=pgsql
       - DB_HOST=postgres
-      - DB_PORT=5454
+      - DB_PORT=5432
       - DB_USERNAME=root
       - DB_PASSWORD=root
       - DB_NAME_APP_ONE=appOne
@@ -43,6 +43,8 @@ services:
   postgres:
     container_name: postgres-ifa
     image: postgres:9.6
+    links:
+      - php
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root

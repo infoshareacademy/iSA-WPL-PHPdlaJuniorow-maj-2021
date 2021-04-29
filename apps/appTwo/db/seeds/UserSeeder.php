@@ -7,10 +7,10 @@ class UserSeeder extends AbstractSeed
     {
         $this->execute(<<<SQL
             INSERT INTO
-                public.users  (first_name, last_name, email)
+                public.users  (first_name, last_name, username)
             VALUES
-                ('TestName', 'TestLastName', 'test@test.com'),
-                ('PoProstuImie', 'PoProstuNazwisko', 'nazwisko@test.com');
+                ('Andrzej', 'Kowalski', 'kowal69'),
+                ('Kamil', 'Karkonosz', 'Kark');
         SQL);
     }
 

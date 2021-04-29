@@ -15,11 +15,11 @@ final class UserCreate extends AbstractMigration
                         primary key,
                 first_name VARCHAR(50) not null,
                 last_name VARCHAR(50) not null,
-                email varchar(255)
+                username varchar(255)
             );
 
-            create unique index users_email_uindex
-                on users (email);
+            create unique index users_username_uindex
+                on users (username);
         SQL);
     }
 

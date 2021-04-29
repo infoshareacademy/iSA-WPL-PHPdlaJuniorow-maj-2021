@@ -25,7 +25,7 @@ return function (ContainerBuilder $containerBuilder) {
                     'port'   => getenv('DB_PORT'),
                     'user'   => getenv('DB_USERNAME'),
                     'pass'   => getenv('DB_PASSWORD'),
-                    'dbname' => getenv('DB_NAME'),
+                    'dbname' => getenv('DB_NAME_APP_TWO'),
                     'driver' => getenv('DB_DRIVER'),
                 ],
                 'appOne' => [
