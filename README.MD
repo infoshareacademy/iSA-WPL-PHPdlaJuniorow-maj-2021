@@ -27,6 +27,14 @@
 - `php vendor/bin/phinx seed:run` - Uruchomienie migracji
 
 
+### Pingi
+- http://localhost:8080/app-two/ping
+- http://localhost:8080/app-three/ping
+- http://localhost:8081/app-one/ping
+- http://localhost:8081/app-three/ping
+- http://localhost:8082/app-one/ping
+- http://localhost:8082/app-two/ping
+
 
 
 
