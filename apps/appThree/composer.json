@@ -27,6 +27,7 @@
         "ext-xml": "*",
         "ext-yaml": "*",
         "ext-zip": "*",
+        "guzzlehttp/guzzle": "^7.0",
         "monolog/monolog": "^2.2",
         "php-di/php-di": "^6.3",
         "robmorgan/phinx": "^0.12.6",

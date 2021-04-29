@@ -20,6 +20,20 @@ return function (ContainerBuilder $containerBuilder) {
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
+                'db' => [
+                    'host'   => getenv('DB_HOST'),
+                    'port'   => getenv('DB_PORT'),
+                    'user'   => getenv('DB_USERNAME'),
+                    'pass'   => getenv('DB_PASSWORD'),
+                    'dbname' => getenv('DB_NAME'),
+                    'driver' => getenv('DB_DRIVER'),
+                ],
+                'appOne' => [
+                    'baseUri' =>  getenv('APP_ONE_HOST')
+                ],
+                'appThree' => [
+                    'baseUri' => getenv('APP_THREE_HOST')
+                ]
             ]);
         }
     ]);

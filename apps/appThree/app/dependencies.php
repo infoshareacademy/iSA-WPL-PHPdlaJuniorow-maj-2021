@@ -2,6 +2,10 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Infrastructure\ApiClients\AppOneClient\AppOneClient;
+use App\Infrastructure\ApiClients\AppOneClient\AppOneConfig;
+use App\Infrastructure\ApiClients\AppTwoClient\AppTwoClient;
+use App\Infrastructure\ApiClients\AppTwoClient\AppTwoConfig;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -11,6 +15,18 @@ use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
+        'db' => function (ContainerInterface $c) {
+            $db = ($c->get(SettingsInterface::class))->get('db');
+
+            return new Pdo(
+                $db['driver']
+                . ':host=' . $db['host']
+                . ';port=' . $db['port']
+                . ';dbname=' . $db['dbname']
+                . ';user=' . $db['user']
+                . ';password=' . $db['pass']
+            );
+        },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
 
@@ -24,6 +40,14 @@ return function (ContainerBuilder $containerBuilder) {
             $logger->pushHandler($handler);
 
             return $logger;
+        },
+        AppTwoClient::class => function (ContainerInterface $c) {
+            $settings = ($c->get(SettingsInterface::class))->get('appTwo');
+            return new AppTwoClient(new AppTwoConfig($settings));
+        },
+        AppOneClient::class => function (ContainerInterface $c) {
+            $settings = ($c->get(SettingsInterface::class))->get('appOne');
+            return new AppOneClient(new AppOneConfig($settings));
         },
     ]);
 };
