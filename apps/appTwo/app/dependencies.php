@@ -17,8 +17,7 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         'db' => function (ContainerInterface $c) {
             $db = ($c->get(SettingsInterface::class))->get('db');
-
-            return new Pdo(
+            $pdo = new Pdo(
                 $db['driver']
                 . ':host=' . $db['host']
                 . ';port=' . $db['port']
@@ -26,6 +25,13 @@ return function (ContainerBuilder $containerBuilder) {
                 . ';user=' . $db['user']
                 . ';password=' . $db['pass']
             );
+
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $pdo->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
+            $pdo->setAttribute(PDO::ATTR_PERSISTENT, false);
+
+            return $pdo;
         },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);

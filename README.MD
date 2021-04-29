@@ -35,6 +35,14 @@
 - http://localhost:8082/app-one/ping
 - http://localhost:8082/app-two/ping
 
-
+### Pobranie/dodanie userow z aplikacji 2
+- POST http://localhost:8081/api/v1/users
+`  {
+   "firstname" : "Kamil",
+   "lastname" : "Ziomkowski",
+   "username" : "ziomeczek"
+  }`
+- GET http://localhost:8081/api/v1/users
+- GET http://localhost:8081/api/v1/users/1
 
 

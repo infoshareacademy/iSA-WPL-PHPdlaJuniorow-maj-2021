@@ -40,14 +40,6 @@ abstract class Action
         $this->logger = $logger;
     }
 
-    /**
-     * @param Request $request
-     * @param Response $response
-     * @param array $args
-     * @return Response
-     * @throws HttpNotFoundException
-     * @throws HttpBadRequestException
-     */
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $this->request = $request;
@@ -61,17 +53,8 @@ abstract class Action
         }
     }
 
-    /**
-     * @return Response
-     * @throws DomainRecordNotFoundException
-     * @throws HttpBadRequestException
-     */
     abstract protected function action(): Response;
 
-    /**
-     * @return array|object
-     * @throws HttpBadRequestException
-     */
     protected function getFormData()
     {
         $input = json_decode(file_get_contents('php://input'));
@@ -83,11 +66,6 @@ abstract class Action
         return $input;
     }
 
-    /**
-     * @param  string $name
-     * @return mixed
-     * @throws HttpBadRequestException
-     */
     protected function resolveArg(string $name)
     {
         if (!isset($this->args[$name])) {
@@ -97,11 +75,6 @@ abstract class Action
         return $this->args[$name];
     }
 
-    /**
-     * @param array|object|null $data
-     * @param int $statusCode
-     * @return Response
-     */
     protected function respondWithData($data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
@@ -109,10 +82,6 @@ abstract class Action
         return $this->respond($payload);
     }
 
-    /**
-     * @param ActionPayload $payload
-     * @return Response
-     */
     protected function respond(ActionPayload $payload): Response
     {
         $json = json_encode($payload, JSON_PRETTY_PRINT);
@@ -121,5 +90,10 @@ abstract class Action
         return $this->response
                     ->withHeader('Content-Type', 'application/json')
                     ->withStatus($payload->getStatusCode());
+    }
+
+    protected function getPostRequestBodyAsArray() : array
+    {
+        return json_decode((string)$this->request->getBody(), true);
     }
 }

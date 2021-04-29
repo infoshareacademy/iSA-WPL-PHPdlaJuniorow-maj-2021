@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use App\Application\Actions\PingExternalApp\AppOne\AppOnePingAction;
 use App\Application\Actions\PingExternalApp\AppThree\AppThreePingAction;
+use App\Application\Actions\User\AddUsersAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -23,6 +24,7 @@ return function (App $app) {
 
     $app->group('/api/v1', function (Group $group) {
         $group->group('/users', function (Group $group) {
+            $group->post('', AddUsersAction::class);
             $group->get('', ListUsersAction::class);
             $group->get('/{id}', ViewUserAction::class);
         });
