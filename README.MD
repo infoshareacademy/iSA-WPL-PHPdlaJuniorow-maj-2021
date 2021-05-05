@@ -2,7 +2,7 @@
 1. Pobierz aplikację z repozytorium : `git clone ...`
 2. W konsloi basha uruchom polecenie docker-compose up
 3. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
-    * `HOST:postgres , PORT:5454, USER:root, PASSWORD:root`
+    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
     * Nazwy baz danych appOne , appTwo, appThree
 4. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
    `docker-compose run --user=www-data php bash`
