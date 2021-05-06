@@ -1,12 +1,20 @@
 ###### Uruchomienie aplikacji
 1. Pobierz aplikację z repozytorium : `git clone ...`
-2. W konsloi basha uruchom polecenie docker-compose up
-3. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
+2. JEŻELI MASZ WINDOWSA:
+   
+    2.1 w katalogu projektu : sudo usermod -a -G www-data 'whoami'
+   
+    2.2 sudo chown root:root apps && sudo chmod 755 apps/
+   
+    2.3 sudo chown -R www-data apps/ && sudo chmod -R 744 apps/
+   
+3. W konsoli basha uruchom polecenie docker-compose up
+4. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
     * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
     * Nazwy baz danych appOne , appTwo, appThree
-4. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
+5. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
    `docker-compose run --user=www-data php bash`
-5. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
+6. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
    `vendor/bin/phinx migrate -e development` - to polecenie zbuduje strukture bazy danych danej aplikacji
    
 ###### Przydatne porty 
