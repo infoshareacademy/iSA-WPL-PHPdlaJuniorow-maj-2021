@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\DisplayAllOrders\DisplayAllOrders;
 use App\Application\Actions\DisplayOrder\DisplayOrder;
 use App\Application\Actions\PingExternalApp\AppThree\AppThreePingAction;
 use App\Application\Actions\PingExternalApp\AppTwo\AppTwoPingAction;
@@ -29,4 +30,6 @@ return function (App $app) {
     });
 
     $app->get('/order/{id}', DisplayOrder::class);
+
+    $app->get('/all-orders', DisplayAllOrders::class);
 };
