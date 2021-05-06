@@ -15,8 +15,8 @@ services:
       - ./apps:/apps/
     links:
       - php
-#    networks:
-#      - my-proxy-net
+    networks:
+      - my-proxy-net
   php:
     container_name: php-ifa
     build:
@@ -37,21 +37,36 @@ services:
       - docker=true
     volumes:
       - ./apps:/apps/
-#    networks:
-#      - my-proxy-net
+      - ./composer_cache:/var/www/.composer
+    networks:
+      - my-proxy-net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5432" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   postgres:
     container_name: postgres-ifa
-    image: postgres:9.6
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
     links:
       - php
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
+      - DB_NAME_APP_ONE=appOne
+      - DB_NAME_APP_TWO=appTwo
+      - DB_NAME_APP_THREE=appThree
     ports:
       - "5432:5432"
-#    networks:
-#      - my-proxy-net
+    networks:
+      - my-proxy-net
+    volumes:
+    - ./postgres-data:/var/lib/postgresql/data
+    - ./docker/postgres/create_db.sql:/docker-entrypoint-initdb.d/1_schema.sql
+
 
 #  elastic:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
@@ -84,6 +99,11 @@ services:
 #      ELASTICSEARCH_HOSTS: '["http://elastic:9200"]'
 #    networks:
 #      - my-proxy-net
+
+networks:
+  my-proxy-net:
+    external: true
+    name: custom_network
 
 #networks:
 #  my-proxy-net:
