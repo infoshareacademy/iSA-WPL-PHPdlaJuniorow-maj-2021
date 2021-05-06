@@ -64,7 +64,6 @@ services:
     networks:
       - my-proxy-net
     volumes:
-    - ./postgres-data:/var/lib/postgresql/data
     - ./docker/postgres/create_db.sql:/docker-entrypoint-initdb.d/1_schema.sql
 
 
