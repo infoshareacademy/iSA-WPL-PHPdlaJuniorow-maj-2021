@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\DisplayOrder\DisplayOrder;
 use App\Application\Actions\PingExternalApp\AppThree\AppThreePingAction;
 use App\Application\Actions\PingExternalApp\AppTwo\AppTwoPingAction;
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -28,4 +27,6 @@ return function (App $app) {
     $app->group('/app-three', function (Group $group) {
         $group->get('/ping', AppThreePingAction::class);
     });
+
+    $app->get('/order/{id}', DisplayOrder::class);
 };
