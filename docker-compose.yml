@@ -45,14 +45,14 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    depends_on:
+       - postgres
 
   postgres:
     container_name: postgres-ifa
     build:
       context: .
       dockerfile: docker/postgres/Dockerfile
-    links:
-      - php
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
