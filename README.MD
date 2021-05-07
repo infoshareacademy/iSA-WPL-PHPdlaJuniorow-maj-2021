@@ -62,3 +62,11 @@
 - docker rm $(docker ps -a -q) - usuniecie wszystkid dockero
 - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 8aa4cb7c6a02
 
+### Problemy na windowsiwe
+Desktop dokcer / wsl2 / kernela linuxa
+https://docs.docker.com/docker-for-windows/wsl/
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+su -s ${USER}
+
