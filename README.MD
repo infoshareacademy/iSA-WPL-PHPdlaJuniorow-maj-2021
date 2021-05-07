@@ -19,13 +19,19 @@ https://docs.docker.com/docker-for-windows/wsl/
 5. `sudo usermod -a -G www-data 'whoami'` (polecenie whoami pokazuje aktualnego uzytkownika bash)
 6. `sudo chmod 755 apps/` 
 7. `sudo chown -R www-data apps/`
-8. W konsoli basha uruchom polecenie docker-compose up
-9. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
+
+Podłączenie do bazy z IDE
+1. W konsoli basha uruchom polecenie `docker-compose up`
+2. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
    * Nazwy baz danych appOne , appTwo, appThree
-10. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
-   `docker-compose run --user=www-data php bash`
-11. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
+
+Wejście na konkretny kontener
+1. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
+   `docker-compose exec --user=www-data php bash`
+
+Uruchomienie migracji bazodanowych:
+1. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
    `vendor/bin/phinx migrate -e development` - to polecenie zbuduje strukture bazy danych danej aplikacji
    
 ###### Przydatne porty 
