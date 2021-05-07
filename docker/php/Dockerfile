@@ -11,11 +11,16 @@ RUN apt-get update \
     && mkdir /.composer && chown -R ${DOCKER_USER}:${DOCKER_USER} /.composer
 
 COPY ./docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
-COPY . /apps
+#tutaj nastapila zmiana katalogu
+COPY ./apps /apps
 
 RUN chown -R www-data:www-data /apps
-WORKDIR /apps
 
+COPY ./apps /apps
+COPY ./docker /docker
+
+WORKDIR /apps
 USER www-data
 
 VOLUME ["/apps"]
+ENTRYPOINT ["sh", "/docker/php/entrypoint.sh"]
