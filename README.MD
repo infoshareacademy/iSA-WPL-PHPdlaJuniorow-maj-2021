@@ -19,10 +19,11 @@ https://docs.docker.com/docker-for-windows/wsl/
 5. `sudo usermod -a -G www-data 'whoami'` (polecenie whoami pokazuje aktualnego uzytkownika bash)
 6. `sudo chmod 755 apps/` 
 7. `sudo chown -R www-data apps/`
+8. `docker-compose up`
+9. Aplikacja powinna być dostępna w przeglądarce pod podanymi poniżej urlami.
 
 Podłączenie do bazy z IDE
-1. W konsoli basha uruchom polecenie `docker-compose up`
-2. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
+1. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
    * Nazwy baz danych appOne , appTwo, appThree
 
