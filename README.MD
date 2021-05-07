@@ -1,11 +1,24 @@
-###### Uruchomienie aplikacji WINDOWS (wymagana konsola bash poprzez instalacje np ubuntu w windowsie)
-1. Pobierz aplikację z repozytorium : `git clone ...`
-2. cd ifa
-3. chmod -R 755 composer_cache
-4. docker-compose build
-5. sudo usermod -a -G www-data 'whoami' (polecenie whoami pokazuje aktualnego uzytkownika bash)
-6. sudo chmod 755 apps/ 
-7. sudo chown -R www-data apps/
+Dla posiadaczy systemu windows proszę o zainstalowanie ubuntu 20.04 tak by docker mógł z niego korzystać
+- https://docs.docker.com/docker-for-windows/wsl/
+- https://stackoverflow.com/questions/63497928/ubuntu-wsl-with-docker-could-not-be-found
+
+### Problemy na windowsiwe
+https://docs.docker.com/docker-for-windows/wsl/
+
+(Podczas builda mogą wystąpić problemy z permissionami, rozwiązaniem tych problemów są komendy poniżej)
+
+- sudo groupadd docker
+- sudo usermod -aG docker $USER
+- su -s ${USER}
+
+###### Uruchomienie aplikacji (wymagana konsola bash)
+1. Pobierz aplikację z repozytorium : `git clone git@github.com:infoshareacademy/iSA-WPL-PHPdlaJuniorow-maj-2021.git`
+2. `cd iSA-WPL-PHPdlaJuniorow-maj-2021`
+3. `chmod -R 755 composer_cache`
+4. `docker-compose build`
+5. `sudo usermod -a -G www-data 'whoami'` (polecenie whoami pokazuje aktualnego uzytkownika bash)
+6. `sudo chmod 755 apps/` 
+7. `sudo chown -R www-data apps/`
 8. W konsoli basha uruchom polecenie docker-compose up
 9. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
@@ -62,12 +75,5 @@
 - docker rm $(docker ps -a -q) - usuniecie wszystkid dockero
 - docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 8aa4cb7c6a02
 
-### Problemy na windowsiwe
-Desktop dokcer / wsl2 / kernela linuxa
-https://docs.docker.com/docker-for-windows/wsl/
-
-sudo groupadd docker
-sudo usermod -aG docker $USER
-su -s ${USER}
 
  
