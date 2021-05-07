@@ -60,8 +60,7 @@ class DisplayOrder extends Action
             'zamawiajacy' => $orderDetails['client'],
             'status' => $orderDetails['status'],
             'produkty' => $productDataList,
-            'suma' => $orderSum,
-            'suma w euro' => ''
+            'suma' => $orderSum
         ]);
     }
 }
