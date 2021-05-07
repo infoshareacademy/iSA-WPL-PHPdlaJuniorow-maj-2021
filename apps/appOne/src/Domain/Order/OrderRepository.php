@@ -12,11 +12,11 @@ class OrderRepository
     public function getProductIdListByOrderId(int $id): array
     {
         $usersOrdersLists = [
-            1 => [1,2,3],
-            2 => [3,2,5],
-            3 => [5,4],
-            4 => [1,3,5,2,4],
-            5 => [5]
+            101 => [1,2,3],
+            102 => [3,2,5],
+            103 => [5,4],
+            104 => [1,3,5,2,4],
+            105 => [5]
         ];
 
         if (false === array_key_exists($id, $usersOrdersLists)) {
