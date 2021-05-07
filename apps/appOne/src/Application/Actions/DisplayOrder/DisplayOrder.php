@@ -63,7 +63,6 @@ class DisplayOrder extends Action
             'status' => $orderDetails['status'],
             'produkty' => $productDataList,
             'suma' => $orderSum,
-            'suma w euro' => ''
         ]);
     }
 
@@ -98,7 +97,6 @@ class DisplayOrder extends Action
             'status' => $order['details']['status'],
             'produkty' => $productDataList,
             'suma' => $orderSum,
-            'suma w euro' => ''
         ]);
     }
 }
