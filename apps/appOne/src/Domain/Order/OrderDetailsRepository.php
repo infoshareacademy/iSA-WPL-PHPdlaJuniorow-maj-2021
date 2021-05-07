@@ -20,7 +20,7 @@ class OrderDetailsRepository
         ];
 
         if (false === array_key_exists($id, $usersOrdersDetails)) {
-            throw new Exception('Id out of range (1-5)');
+            throw new Exception('Id out of range (101-105)');
         }
 
         return $usersOrdersDetails[$id];
