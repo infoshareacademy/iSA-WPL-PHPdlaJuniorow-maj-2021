@@ -3,6 +3,7 @@
 namespace App\Application\Actions\DisplayOrder;
 
 use App\Application\Actions\Action;
+use App\Domain\Order\OrderAggregateService;
 use App\Domain\Order\OrderDetailsRepository;
 use App\Domain\Order\OrderRepository;
 use App\Domain\Order\OrderService;
@@ -26,29 +27,14 @@ class DisplayOrder extends Action
         $orderService = new OrderService(new OrderRepository(), new OrderDetailsRepository());
         $productService = new ProductService(new ProductRepository(), new ProductDescriptionRepository());
 
-        // pobieramy pelne informacje o zamowieniu
-        $order = $orderService->getOrder($orderId);
-
-        // pusta tablica do ktorej bedziemy zbierac dane
-        $productDataList = [];
-        foreach ($order['productsIdList'] as $productId) {
-            // pobieramy pelne informacje o produkcie
-            // dodajemy dane produktu do listy
-            array_push($productDataList, $productService->getProduct($productId));
-        }
-
-        // inicjalizujemy zmienna, do ktorej bedziemy zbierac sume
-        $orderSum = 0;
-        // sumujemy wartosc produktow
-        foreach ($productDataList as $productData) {
-            $orderSum += $productData['cena'];
-        }
+        $orderAggregateService = new OrderAggregateService($orderService, $productService);
+        $order = $orderAggregateService->getOrderWithProductsAndDetails($orderId);
 
         return $this->respondWithData([
-            'zamawiajacy' => $order['details']['client'],
-            'status' => $order['details']['status'],
-            'produkty' => $productDataList,
-            'suma' => $orderSum,
+            'zamawiajacy' => $order['client'],
+            'status' => $order['order_status'],
+            'produkty' => $order['product_list'],
+            'suma' => $order['price_total'],
         ]);
     }
 }
