@@ -1,33 +1,20 @@
-###### Uruchomienie aplikacji MAC/LINUX
-1. Pobierz aplikację z repozytorium : `git clone ...`
-2. W konsoli wejdz do pobranego katalogu: `cd ifa`
-3. Wywołaj polecenie docker-compose build 
-4. Wywołaj polecenie docker-compose up
-3. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
-    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
-    * Nazwy baz danych appOne , appTwo, appThree
-4. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
-   `docker-compose run --user=www-data php bash`
-5. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
-   `vendor/bin/phinx migrate -e development` - to polecenie zbuduje strukture bazy danych danej aplikacji
-   
 ###### Uruchomienie aplikacji WINDOWS (wymagana konsola bash poprzez instalacje np ubuntu w windowsie)
 1. Pobierz aplikację z repozytorium : `git clone ...`
 2. cd ifa
-3. docker-compose build
-3. sudo usermod -a -G www-data 'whoami'
-4. sudo chmod 755 apps/ 
-5. sudo chown -R www-data apps/
-6. W konsoli basha uruchom polecenie docker-compose up
-7. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
+3. chmod -R 755 composer_cache
+4. docker-compose build
+5. sudo usermod -a -G www-data 'whoami' (polecenie whoami pokazuje aktualnego uzytkownika bash)
+6. sudo chmod 755 apps/ 
+7. sudo chown -R www-data apps/
+8. W konsoli basha uruchom polecenie docker-compose up
+9. Za pomocą jakiegokolwiek IDE które daje możliwość podłączenia się do postgres, utwórz potrzebne bazy danych
    * `HOST:localhost , PORT:5432, USER:root, PASSWORD:root`
    * Nazwy baz danych appOne , appTwo, appThree
-8. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
+10. W konsoli zaloguj się na kontener PHPa (oczywiście z katalogu zawierającego docker-composa)
    `docker-compose run --user=www-data php bash`
-9. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
+11. Wejdź do katalogu aplikacji która Ciebie interesuje a następnie uruchom polecenie
    `vendor/bin/phinx migrate -e development` - to polecenie zbuduje strukture bazy danych danej aplikacji
    
-co -r /home/<user>/<directory> /mnt/c
 ###### Przydatne porty 
 
 - localhost:8080 - App1
@@ -66,6 +53,12 @@ co -r /home/<user>/<directory> /mnt/c
 - GET http://localhost:8081/api/v1/users
 - GET http://localhost:8081/api/v1/users/1
 
+### Przydatne komendy 
+- cp -r /home/<user>/<directory> /mnt/c - zamontowanie 
+- docker exec -it 133da1450f8d php app/console.php sitemap  - Uruchomienie elementu bez wchodzenia na dockera 
+- docker inspect eb6dfdda5ec4 | grep "IPAddress" - Znalezienie ip dockera
+- docker exec -it cashbox_app_1 /bin/bash - Logowanie do dockera
+- docker stop $(docker ps -a -q) - Wylaczenie wszystkich dzialajacych dockerow
+- docker rm $(docker ps -a -q) - usuniecie wszystkid dockero
+- docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 8aa4cb7c6a02
 
-1. clone
-cd ifa && chmod -R 755 composer_cache
