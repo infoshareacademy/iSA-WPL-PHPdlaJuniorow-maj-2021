@@ -14,9 +14,15 @@ class DisplayOrder extends Action
 {
     public function action(): Response
     {
-        // obsluga
+        /*
+         *
+         * pobranie i obsluga danych
+         *
+         * parametr z urla: (int)$this->args['id']
+         *
+         */
 
-
+        // wyswietlenie danych
         return $this->respondWithData([
             'produkty' => [],
             'suma' => 0,
