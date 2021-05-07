@@ -42,7 +42,6 @@ class DisplayOrder extends Action
         return $this->respondWithData([
             'produkty' => $productDataList,
             'suma' => $orderSum,
-            'suma w euro' => ''
         ]);
     }
 }
