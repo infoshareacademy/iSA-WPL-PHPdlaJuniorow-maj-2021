@@ -6,7 +6,6 @@ namespace App\Application\Actions\User;
 use App\Application\Actions\Action;
 use App\Domain\User\UserCommandRepository;
 use App\Domain\User\UserQueryRepository;
-use App\Domain\User\UserRepository;
 use Psr\Log\LoggerInterface;
 
 abstract class UserAction extends Action

@@ -5,7 +5,6 @@ namespace App\Infrastructure\Persistence\User;
 use App\Domain\User\User;
 use App\Domain\User\UserNotFoundException;
 use App\Domain\User\UserQueryRepository;
-use App\Domain\User\UserRepository;
 use PDO;
 
 class QueryUserRepository implements UserQueryRepository
