@@ -96,4 +96,14 @@ abstract class Action
     {
         return json_decode((string)$this->request->getBody(), true);
     }
+
+    protected function jsonResponse($data = null, int $statusCode = 200): Response
+    {
+        if ($data !== null) {
+            $this->response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
+            $this->response = $this->response->withHeader('Content-Type', 'application/json');
+        }
+
+        return $this->response->withStatus($statusCode);
+    }
 }
