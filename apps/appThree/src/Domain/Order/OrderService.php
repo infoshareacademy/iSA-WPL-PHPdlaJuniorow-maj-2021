@@ -14,4 +14,12 @@ class OrderService
         $this->orderRepository = $orderRepository;
     }
 
+    public function create(OrderCreateCommand $orderCreateCommand)
+    {
+        if (!$orderCreateCommand->isValid()) {
+            throw new \Exception('error');
+        }
+        return $this->orderRepository->createOrder($orderCreateCommand);
+    }
+
 }

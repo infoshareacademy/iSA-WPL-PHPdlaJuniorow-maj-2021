@@ -14,53 +14,47 @@ class OrderRepository
         $this->db = $db;
     }
 
-    public function exampleInsert($data)
+    public function createOrder(OrderCreateCommand $order)
     {
         $sql = <<<SQL
-            INSERT INTO example_table (
-                col_1,
-                col_2,
-                col_3,
-                col_4
+            INSERT INTO orders (
+                client,
+                status,
+                price_amount,
+                currency
             ) VALUES (
-                :data1,
-                :data2,
-                :data3,
-                :data4
+                :client,
+                :status,
+                :price,
+                :currency
             ) RETURNING id;
             
 SQL;
         $params = [
-            'data1' => $data['data1'],
-            'data2' => $data['data2'],
-            'data3' => $data['data3'],
-            'data4' => $data['data4'],
+            'client' => $order->getClient(),
+            'status' => $order->getStatus(),
+            'price' => $order->getPriceAmount(),
+            'currency' => $order->getCurrency()
         ];
         $query = $this->db->prepare($sql);
         $query->setFetchMode(\PDO::FETCH_COLUMN, 0);
-        $query->execute($data);
+        $query->execute($params);
 
         return $query->fetch();
     }
 
-    public function exampleGet($data)
+    public function getOrder(int $orderId)
     {
         $sql = <<<SQL
-            SELECT * FROM example_table WHERE id = :id;
-            
+            SELECT * FROM orders WHERE id = :id;     
 SQL;
         $params = [
-            'data1' => $data['data1'],
-            'data2' => $data['data2'],
-            'data3' => $data['data3'],
-            'data4' => $data['data4'],
+            'id' => $orderId,
         ];
         $query = $this->db->prepare($sql);
-        $query->setFetchMode(\PDO::FETCH_COLUMN, 0);
-        $query->execute($data);
+        $query->execute($params);
 
         return $query->fetch();
-
     }
 
 }

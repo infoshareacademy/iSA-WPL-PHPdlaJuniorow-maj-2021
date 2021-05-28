@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Domain\Logger\LoggerRepository;
 use App\Domain\Order\OrderRepository;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
@@ -10,6 +11,9 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         OrderRepository::class => function (ContainerInterface $c) {
             return new OrderRepository($c->get('db'));
+        },
+        LoggerRepository::class => function (ContainerInterface $c) {
+            return new LoggerRepository($c->get('db'));
         },
     ]);
 

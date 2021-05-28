@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Domain\Logger\LoggerRepository;
+use App\Domain\Logger\LoggerService;
 use App\Domain\Order\OrderRepository;
 use App\Domain\Order\OrderService;
 use App\Infrastructure\ApiClients\AppOneClient\AppOneClient;
@@ -59,6 +61,9 @@ return function (ContainerBuilder $containerBuilder) {
         },
         OrderService::class => function (ContainerInterface $c) {
             return new OrderService($c->get(OrderRepository::class));
+        },
+        LoggerService::class => function (ContainerInterface $c) {
+            return new LoggerService($c->get(LoggerRepository::class));
         },
     ]);
 };
