@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
+use App\Domain\Order\OrderRepository;
+use App\Domain\Order\OrderService;
 use App\Infrastructure\ApiClients\AppOneClient\AppOneClient;
 use App\Infrastructure\ApiClients\AppOneClient\AppOneConfig;
 use App\Infrastructure\ApiClients\AppTwoClient\AppTwoClient;
@@ -54,6 +56,9 @@ return function (ContainerBuilder $containerBuilder) {
         AppOneClient::class => function (ContainerInterface $c) {
             $settings = ($c->get(SettingsInterface::class))->get('appOne');
             return new AppOneClient(new AppOneConfig($settings));
+        },
+        OrderService::class => function (ContainerInterface $c) {
+            return new OrderService($c->get(OrderRepository::class));
         },
     ]);
 };

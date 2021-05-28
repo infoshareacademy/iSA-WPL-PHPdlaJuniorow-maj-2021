@@ -22,13 +22,13 @@ services:
       dockerfile: docker/php/Dockerfile
     environment:
       - DB_DRIVER=pgsql
-      - DB_HOST=postgres
+      - DB_HOST=postgres-ifa
       - DB_PORT=5432
       - DB_USERNAME=root
       - DB_PASSWORD=root
       - DB_NAME_APP_ONE=appOne
       - DB_NAME_APP_TWO=appTwo
-      - DB_NAME_APP_THREE=appThree
+      - DB_NAME_APP_THREE=appOne
       - APP_ONE_HOST=web:80
       - APP_TWO_HOST=web:81
       - APP_THREE_HOST=web:82
@@ -61,33 +61,33 @@ services:
     - ./docker/postgres/create_db.sql:/docker-entrypoint-initdb.d/1_schema.sql
 
 
-#  elastic:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
-#    container_name: elastic
-#    environment:
-#      - node.name=elastic
-#      - cluster.name=es-docker-cluster
-#      - discovery.seed_hosts=es02,es03
-#      - cluster.initial_master_nodes=elastic
-#      - bootstrap.memory_lock=true
-#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
-#    volumes:
-#      - data01:/usr/share/elasticsearch/data
-#    ports:
-#      - 9200:9200
-#
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana:7.12.0
-#    container_name: kibana
-#    ports:
-#      - 5601:5601
-#    environment:
-#      ELASTICSEARCH_URL: http://elastic:9200
-#      ELASTICSEARCH_HOSTS: '["http://elastic:9200"]'
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    container_name: elastic
+    environment:
+      - node.name=elastic
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=elastic
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.12.0
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elastic:9200
+      ELASTICSEARCH_HOSTS: '["http://elastic:9200"]'
 
 
 volumes:

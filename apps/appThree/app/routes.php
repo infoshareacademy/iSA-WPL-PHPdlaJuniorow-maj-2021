@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Actions\CreateOrder\CreateOrder;
+use App\Application\Actions\GetOrder\GetOrder;
 use App\Application\Actions\PingExternalApp\AppOne\AppOnePingAction;
 use App\Application\Actions\PingExternalApp\AppTwo\AppTwoPingAction;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -26,4 +28,6 @@ return function (App $app) {
         $group->get('/ping', AppOnePingAction::class);
     });
 
+    $app->post('/orders', CreateOrder::class);
+    $app->get('/orders/{id}', GetOrder::class);
 };
