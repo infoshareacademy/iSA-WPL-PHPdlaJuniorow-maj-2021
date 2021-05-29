@@ -54,7 +54,7 @@ services:
       - POSTGRES_USER=root
       - DB_NAME_APP_ONE=appOne
       - DB_NAME_APP_TWO=appTwo
-      - DB_NAME_APP_THREE=appThree
+      - DB_NAME_APP_THREE=appOne
     ports:
       - "5432:5432"
     volumes:
