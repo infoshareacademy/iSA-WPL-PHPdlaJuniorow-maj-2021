@@ -42,7 +42,7 @@ services:
       timeout: 10s
       retries: 5
     depends_on:
-       - postgres
+      - postgres
 
   postgres:
     container_name: postgres-ifa
@@ -58,7 +58,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-    - ./docker/postgres/create_db.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      - ./docker/postgres/create_db.sql:/docker-entrypoint-initdb.d/1_schema.sql
 
 
   elastic:
@@ -89,6 +89,21 @@ services:
       ELASTICSEARCH_URL: http://elastic:9200
       ELASTICSEARCH_HOSTS: '["http://elastic:9200"]'
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring_grafana
+    restart: unless-stopped
+    links:
+      - postgres
+    #    volumes:
+    #      - ./data/grafana:/var/lib/grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=root
+      - GF_SECURITY_ADMIN_PASSWORD=root
+      - GF_USERS_ALLOW_SIGN_UP=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
 
 volumes:
   data01:
